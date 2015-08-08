@@ -7,6 +7,8 @@ Installs the CloudWatch Logs client and enables easy configuration of multiple l
 # Supported OS
 Currently all linux OS's are supported.
 
+On Amazon Linux the yum package will be used.
+
 # Usage
 Logs are configured by appending to the `['cwlogs']['logfiles']` attribute from any recipe.  You can configure as many
 logs as needed.  Simply include the default cwlogs recipe in your runlist after all recipes which define a log.
