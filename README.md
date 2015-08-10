@@ -39,7 +39,7 @@ logs as needed.  Simply include the default cwlogs recipe in your runlist after 
       :datetime_format => '[%d/%b/%Y:%H:%M:%S %z]',
       :multi_line_start_pattern => '^--([0-9a-fA-F]*){8}-[A]{1}--',
       :initial_position => 'end_of_file'
-  }
+    }
 ```
 
 From any attributes file will generate the following CloudWatch Logs config:
