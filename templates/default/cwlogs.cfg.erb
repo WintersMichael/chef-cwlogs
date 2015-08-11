@@ -10,27 +10,18 @@ state_file = /var/awslogs/state/agent-state
 ## matter as long as its unique within this file.
 #
 #[kern.log]
-#
 ## Path of log file for the agent to monitor and upload.
-#
 #file = /var/log/kern.log
-#
 ## Name of the destination log group.
-#
 #log_group_name = kern.log
-#
 ## Name of the destination log stream.
-#
 #log_stream_name = {instance_id}
-#
 ## Format specifier for timestamp parsing.
-#
 #datetime_format = %b %d %H:%M:%S
-#
 
-<% @logfiles.each do |section_name,section_config| %>
+<% @logfiles.each do |section_name, section_config| %>
 
-<%= "[" + section_name + "]"%>
+<%= '[' + section_name + ']' %>
 <% section_config.each do |key,val| %>
 <%= key %> = <%= val %>
 <% end %>
