@@ -22,6 +22,7 @@ end
 remote_file '/opt/aws/cloudwatch/awslogs-agent-setup.py' do
   source 'https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py'
   mode '0755'
+  action node['cwlogs']['attempt_upgrade'] ? :create : :create_if_missing
 end
 
 execute 'Install CloudWatch Logs agent' do
