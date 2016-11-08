@@ -17,6 +17,13 @@ template '/etc/awslogs/awscli.conf' do
   mode 0600
 end
 
+template '/etc/awslogs/proxy.conf' do
+  source 'proxy.conf.erb'
+  owner 'root'
+  group 'root'
+  mode 0600
+end
+
 template '/etc/awslogs/awslogs.conf' do
   source "awslogs.conf.erb"
   owner "root"
