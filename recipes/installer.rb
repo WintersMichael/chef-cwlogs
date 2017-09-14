@@ -30,5 +30,5 @@ proxy_args = proxy_env.map { |k,v| "--#{k.gsub('_','-')} '#{v}'" }.join(' ')
 execute 'Install CloudWatch Logs agent' do
   command "/opt/aws/cloudwatch/awslogs-agent-setup.py -n -r #{node['cwlogs']['region']} -c /tmp/cwlogs.cfg #{proxy_args}"
   guard_interpreter :bash
-  not_if { system 'pgrep -f awslogs >/dev/null' }
+  not_if 'pgrep -f awslogs >/dev/null'
 end
