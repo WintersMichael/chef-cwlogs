@@ -22,6 +22,12 @@ installer from AWS, then you can set the following attribute to `false`:
 ['cwlogs']['attempt_upgrade'] = false
 ```
 
+The CloudWatch agent no longer supports installs using Python 2.6. On systems with Python 2.6 set as default, you will need a newerv version of Python installed (2.7 minimum). You can then set the `default['cwlogs']['python_bin']` attribute to point to the >= 2.7 executable. 
+
+```ruby
+default['cwlogs']['python_bin'] = '/usr/bin/python2.7'
+```
+
 ## Example
 
 ```ruby
