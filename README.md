@@ -28,6 +28,19 @@ The CloudWatch agent no longer supports installs using Python 2.6. On systems wi
 default['cwlogs']['python_bin'] = '/usr/bin/python2.7'
 ```
 
+Some systems require a root SSL certificate in order for python/pip to access remote https endpoints. For that purpose, you can specify a location to your system's root cert bundle using the `default['cwlogs']['ca_bundle']` attribute.
+
+```ruby
+default['cwlogs']['ca_bundle'] = '/path/to/my/bundle.pem'
+```
+
+You may want to provide your own installation file instead of using the default location from Amazon. To do so, update the `default['cwlogs']['installation_file_source']` attribute.
+
+```ruby
+default['cwlogs']['installation_file_source'] = 'https://your.internal.domain.org/path/to/installer.py'
+default['cwlogs']['installation_file_source'] = '/path/on/your/filesystem'
+```
+
 ## Example
 
 ```ruby
