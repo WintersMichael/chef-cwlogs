@@ -1,0 +1,7 @@
+# git folder(s)
+*/.git/*
+
+# Editor files
+*~
+*.sw[a-z]
+.idea/*
