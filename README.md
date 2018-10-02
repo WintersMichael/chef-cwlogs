@@ -13,6 +13,55 @@ On Amazon Linux the yum package will be used.
 Logs are configured by appending to the `['cwlogs']['logfiles']` attribute from any recipe.  You can configure as many
 logs as needed.  Simply include the default cwlogs recipe in your runlist after all recipes which define a log.
 
+- also add `default['cwlogs']['region'] = 'us-east-1'` to your attributes
+
+## using it in recipe
+
+if you will be adding logfiles from within a recipe. add the default attribute in you recipe.
+
+```
+# file cookbooks/<cookbook_name>/attributes/default.rb
+
+default['cwlogs']['region'] = 'us-east-1'
+default['cwlogs']['logfiles'] = {}
+```
+
+```
+# file cookbooks/<cookbook_name>/recipes/<recipe_name>.rb
+
+node.default['cwlogs']['logfiles'][PROJECT_NAME.to_s] = {
+  :log_stream_name  => '{hostname} ' + DateTime.now.strftime( datetime_format.gsub! ' ', '-' ),
+  :log_group_name   =>  PROJECT_NAME.to_s,
+  :file             =>  log_file.to_s,
+  :datetime_format  => datetime_format,
+  :initial_position => 'start_of_file'
+}
+
+```
+
+then update the run list for the node to add it at the end of the list
+
+```
+# file nodes/<node_name>.json
+
+{
+   "normal": {
+   },
+   "name": "node-name",
+   "default": {
+   },
+   "json_class": "Chef::Node",
+   "automatic": {
+   },
+   "run_list": [
+      "...",
+      "...",
+      "cloudwatch-logs" # or cwlogs
+   ],
+   "chef_type": "node"
+}
+
+```
 
 # Example
 
