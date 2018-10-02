@@ -24,7 +24,11 @@ remote_file '/opt/aws/cloudwatch/awslogs-agent-setup.py' do
   mode '0755'
 end
 
-execute 'Install CloudWatch Logs agent' do
-  command "/opt/aws/cloudwatch/awslogs-agent-setup.py -n -r #{node['cwlogs']['region']} -c /tmp/cwlogs.cfg"
-  not_if { system 'pgrep -f aws-logs-agent-setup' }
+proxy_env = ENV.select { |k, v| %w(http_proxy https_proxy no_proxy).include?(k) && !v.empty? }
+proxy_args = proxy_env.map { |k,v| "--#{k.gsub('_','-')} '#{v}'" }.join(' ')
+
+python_runtime '2'
+
+python_execute 'run-cloudwatch-logs installer' do
+  command "/opt/aws/cloudwatch/awslogs-agent-setup.py -n -r #{node['cwlogs']['region']} -c /tmp/cwlogs.cfg #{proxy_args}"
 end
